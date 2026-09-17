@@ -1,0 +1,19 @@
+{
+  "name": "Okur",
+  "short_name": "Okur",
+  "description": "Her gün bir İngilizce metni sesli oku",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#161616",
+  "theme_color": "#161616",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

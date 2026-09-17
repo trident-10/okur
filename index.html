@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#161616" id="meta-theme-color" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Okur" />
+  <meta name="description" content="Sesli okuma — meteartunaltay" />
+  <title>Okur — meteartunaltay</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=39" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+  </div>
+
+  <main id="editor-screen" class="screen screen-editor">
+    <header class="topbar">
+      <h1 class="app-title">Okur</h1>
+      <div class="top-actions">
+        <p id="streak-label" class="streak-pill">0 gün</p>
+        <button id="settings-btn" class="icon-btn icon-btn-round" type="button" aria-label="Ayarlar">⚙</button>
+      </div>
+    </header>
+
+    <label class="editor-card">
+      <textarea
+        id="text-input"
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+        aria-label="Metin"
+        placeholder="Metni yapıştır..."
+      ></textarea>
+      <div class="editor-meta">
+        <p id="word-count" class="word-count">0 kelime</p>
+        <div class="meta-actions">
+          <button id="vocab-btn" class="resume-chip" type="button">Kelimeler</button>
+          <button id="resume-btn" class="resume-chip" type="button" hidden>Devam</button>
+        </div>
+      </div>
+    </label>
+
+    <div class="editor-bottom" id="editor-bottom">
+      <section class="history" id="history-section" hidden>
+        <h2>Önceki metinler</h2>
+        <ul id="history-list"></ul>
+      </section>
+      <aside class="home-panel" id="home-panel" aria-label="Gün özeti">
+        <div class="home-panel-head">
+          <h2 class="home-panel-title">Gün özeti</h2>
+          <div class="segment home-tempo" role="group" aria-label="Okuma temposu">
+            <button type="button" data-chunk="comfort" class="seg-btn is-on">Rahat</button>
+            <button type="button" data-chunk="focus" class="seg-btn">Odak</button>
+          </div>
+        </div>
+        <div class="home-stats" id="home-stats" aria-hidden="false">
+          <div class="home-stat">
+            <strong id="home-stat-streak">0</strong>
+            <span>seri</span>
+          </div>
+          <div class="home-stat">
+            <strong id="home-stat-vocab">0</strong>
+            <span>kelime</span>
+          </div>
+          <div class="home-stat">
+            <strong id="home-stat-texts">0</strong>
+            <span>metin</span>
+          </div>
+        </div>
+        <p class="home-panel-msg" id="home-panel-msg"></p>
+        <div class="home-panel-actions" id="home-panel-actions"></div>
+      </aside>
+      <section class="quick-start" id="quick-start" aria-label="Hızlı başla">
+        <h2>Hızlı başla</h2>
+        <div class="quick-start-list" id="quick-start-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="editor-actions">
+    <button id="start-btn" class="btn-primary" type="button" disabled>Okumaya başla</button>
+    <footer class="site-footer">
+      <div class="site-signature">
+        <p class="site-copy">
+          <a href="https://www.linkedin.com/in/mete-artun-altay-243a7a289" target="_blank" rel="noopener noreferrer">Mete Artun Altay</a>
+          · © 2026 Okur
+        </p>
+        <nav class="site-social" aria-label="Sosyal bağlantılar">
+          <a href="https://www.linkedin.com/in/mete-artun-altay-243a7a289" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5ZM5 9.75H1.98V21H5V9.75ZM9.25 9.75H6.3V21h2.95v-5.7c0-1.5.28-2.96 2.15-2.96 1.84 0 1.87 1.72 1.87 3.06V21H16.2v-6.26c0-3.08-.66-5.45-4.27-5.45-1.73 0-2.9.95-3.37 1.85h-.05V9.75Z"/></svg>
+          </a>
+          <a href="https://github.com/trident-10" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.12-1.47-1.12-1.47-.92-.63.07-.62.07-.62 1 .07 1.54 1.04 1.54 1.04.9 1.54 2.36 1.1 2.94.84.09-.65.35-1.1.64-1.35-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86v2.76c0 .26.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          </a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+
+  <section id="reader-screen" class="screen screen-reader" hidden>
+    <div class="reader-top">
+      <button id="back-btn" class="icon-btn" type="button" aria-label="Geri">Geri</button>
+      <button id="speed-label" class="speed-label" type="button" aria-label="Hız">1.0×</button>
+      <button id="font-btn" class="icon-btn" type="button" aria-label="Yazı boyutu">Aa</button>
+    </div>
+    <p id="mark-hint" class="mark-hint" hidden>Duraklat · bilmediğin kelimeye dokun</p>
+
+    <div id="scroller" class="scroller">
+      <article id="prompter-text" class="prompter-text"></article>
+    </div>
+
+    <div class="reader-controls">
+      <button id="finish-btn" class="finish-read-btn" type="button" hidden>Okumamı bitir</button>
+      <div class="reader-controls-row">
+        <button id="slower-btn" class="ctrl-btn" type="button" aria-label="Yavaşlat">−</button>
+        <button id="play-btn" class="ctrl-btn ctrl-play" type="button" aria-label="Başlat">Başlat</button>
+        <button id="faster-btn" class="ctrl-btn" type="button" aria-label="Hızlandır">+</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="done-overlay" class="done-overlay" hidden>
+    <div class="done-card">
+      <h2>Bitti</h2>
+      <ul class="stats-list" id="stats-list">
+        <li><span>Süre</span><strong id="stat-time">0:00</strong></li>
+        <li><span>Kelime / dk</span><strong id="stat-wpm">0</strong></li>
+        <li><span>Duraklama</span><strong id="stat-pauses">0</strong></li>
+        <li><span>Streak</span><strong id="stat-streak">0</strong></li>
+      </ul>
+      <button id="again-btn" class="btn-primary" type="button">Tekrar oku</button>
+      <button id="review-from-done-btn" class="btn-ghost" type="button" hidden>İşaretli kelimeleri tekrar et</button>
+      <button id="done-back-btn" class="btn-ghost" type="button">Metne dön</button>
+    </div>
+  </div>
+
+  <div id="vocab-overlay" class="done-overlay" hidden>
+    <div class="done-card settings-card vocab-card">
+      <h2>İşaretli kelimeler</h2>
+      <p id="vocab-empty" class="install-hint">Henüz kelime yok. Okurken duraklatıp kelimeye dokun.</p>
+      <ul id="vocab-list" class="vocab-list"></ul>
+      <button id="vocab-review-btn" class="btn-primary" type="button" disabled>Tekrar et</button>
+      <button id="vocab-clear-btn" class="btn-danger" type="button" hidden>Tümünü sil</button>
+      <button id="vocab-close" class="btn-ghost" type="button">Kapat</button>
+    </div>
+  </div>
+
+  <div id="settings-overlay" class="done-overlay" hidden>
+    <div class="done-card settings-card">
+      <h2>Ayarlar</h2>
+
+      <div class="setting-row">
+        <span>Tema</span>
+        <div class="segment" role="group" aria-label="Tema">
+          <button type="button" data-theme="dark" class="seg-btn is-on">Koyu</button>
+          <button type="button" data-theme="light" class="seg-btn">Açık</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <span>Hatırlatma</span>
+        <div class="setting-inline">
+          <label class="toggle">
+            <input id="reminder-toggle" type="checkbox" />
+            <span>Açık</span>
+          </label>
+          <input id="reminder-time" class="time-input" type="time" value="20:00" />
+        </div>
+      </div>
+
+      <button id="install-btn" class="btn-primary" type="button" hidden>Ana ekrana ekle</button>
+      <p id="install-hint" class="install-hint">Chrome → Ana ekrana ekle</p>
+
+      <button id="clear-texts-btn" class="btn-danger" type="button">Metinleri sil</button>
+      <button id="settings-close" class="btn-ghost" type="button">Kapat</button>
+    </div>
+  </div>
+
+  <script src="js/app.js?v=39"></script>
+</body>
+</html>
