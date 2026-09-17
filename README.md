@@ -1,4 +1,3 @@
-````md
 # Okur
 
 **Her gün bir İngilizce metni sesli oku.**
@@ -103,6 +102,3 @@ HTML, CSS, JavaScript, LocalStorage, Service Worker ve Web App Manifest.
 * LinkedIn: [mete-artun-altay](https://www.linkedin.com/in/mete-artun-altay-243a7a289)
 * GitHub: [trident-10](https://github.com/trident-10)
 * Mail: [meteartunaltay08@gmail.com](mailto:meteartunaltay08@gmail.com)
-
-```
-```
